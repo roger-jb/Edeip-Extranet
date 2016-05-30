@@ -28,16 +28,4 @@ public class Connexion{
     public String getMdpUtilisateur() {
         return mdpUtilisateur;
     }
-
-    public void setIdUtilisateur(Integer idUtilisateur) {
-        this.idUtilisateur = idUtilisateur;
-    }
-
-    public void setLoginUtilisateur(String loginUtilisateur) {
-        this.loginUtilisateur = loginUtilisateur;
-    }
-
-    public void setMdpUtilisateur(String mdpUtilisateur) {
-        this.mdpUtilisateur = mdpUtilisateur;
-    }
 }

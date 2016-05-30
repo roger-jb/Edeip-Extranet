@@ -1,5 +1,6 @@
 package fr.rogerleoen.edeip_extranet.objet;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Collection;
  */
 public class Eleve extends Utilisateur {
     protected Integer idNiveau;
-    protected Collection<Responsable> lesResponsables;
+    protected Collection<Responsable> lesResponsables = new ArrayList<>();
 
     public Integer getIdEleve() {
         return idUtilisateur;
@@ -18,9 +19,6 @@ public class Eleve extends Utilisateur {
         return idNiveau;
     }
 
-    public void setIdNiveau(Integer idNiveau) {
-        this.idNiveau = idNiveau;
-    }
 
     public void addResponsable(Responsable unResponsable){
         Boolean found = false;
@@ -33,5 +31,20 @@ public class Eleve extends Utilisateur {
         if (!found){
             lesResponsables.add(unResponsable);
         }
+    }
+
+    public Collection<Responsable> getLesResponsables(){
+        return lesResponsables;
+    }
+
+    public Responsable getResponsable(Integer idResponsble){
+        Responsable leResponsable = new Responsable();
+        for (Responsable unResponsable : lesResponsables){
+            if (unResponsable.getIdResponsable().equals(idResponsble)){
+                leResponsable = unResponsable;
+                break;
+            }
+        }
+        return leResponsable;
     }
 }

@@ -1,11 +1,9 @@
 package fr.rogerleoen.edeip_extranet.data;
 
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import fr.rogerleoen.edeip_extranet.LoginActivity;
 import fr.rogerleoen.edeip_extranet.objet.*;
 
 /**
