@@ -14,14 +14,19 @@ import fr.rogerleoen.edeip_extranet.objet.*;
  */
 public class StoredData {
 
-    public Collection<Utilisateur> lesUtilisateurs = new ArrayList<>();
-    public Collection<Administrateur> lesAdministrateurs = new ArrayList<>();
-    public Collection<Professeur> lesProfesseurs = new ArrayList<>();
-    public Collection<Responsable> lesResponsables = new ArrayList<>();
-    public Collection<Eleve> lesEleves = new ArrayList<>();
-    public Collection<Matiere> lesMatieres = new ArrayList<>();
-    public Collection<Niveau> lesNiveaux = new ArrayList<>();
-    public Collection<Connexion> lesConnexions = new ArrayList<>();
+    public Collection<Connexion>        lesConnexions       = new ArrayList<>();
+
+    public Collection<Utilisateur>      lesUtilisateurs     = new ArrayList<>();
+    public Collection<Administrateur>   lesAdministrateurs  = new ArrayList<>();
+    public Collection<Professeur>       lesProfesseurs      = new ArrayList<>();
+    public Collection<Responsable>      lesResponsables     = new ArrayList<>();
+    public Collection<Eleve>            lesEleves           = new ArrayList<>();
+
+    public Collection<Matiere>          lesMatieres         = new ArrayList<>();
+    public Collection<Niveau>           lesNiveaux          = new ArrayList<>();
+
+    public Collection<CarnetLiaison>    lesCarnetLiaisons   = new ArrayList<>();
+    public Collection<CahierText>       lesCahierTexts      = new ArrayList<>();
 
     /**
      * chargement des données de la base de données
@@ -31,7 +36,6 @@ public class StoredData {
         AsyncWebService.getAllNiveau();
         AsyncWebService.getAllUtilisateur();
         AsyncWebService.getAllMatiere();
-//        Log.e("StoredData", "fin lancement WS");
     }
 
     /**
