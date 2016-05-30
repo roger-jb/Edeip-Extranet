@@ -32,4 +32,8 @@ public class EdeipExtranet extends Application {
             }
         }
     }
+
+    public static void Deconnexion() {
+        user = new Utilisateur();
+    }
 }

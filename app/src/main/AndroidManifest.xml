@@ -27,7 +27,61 @@
         <activity
             android:name=".AccueilActivity"
             android:label="@string/title_activity_accueil"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CarnetLiaisonSelectActivity"
+            android:label="@string/title_activity_carnet_liaison_select"
+            android:parentActivityName=".AccueilActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.rogerleoen.edeip_extranet.AccueilActivity" />
+        </activity>
+        <activity
+            android:name=".CarnetLiaisonListActivity"
+            android:label="@string/title_carnetliaison_list"
+            android:parentActivityName=".CarnetLiaisonSelectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.rogerleoen.edeip_extranet.CarnetLiaisonSelectActivity" />
+        </activity>
+        <activity
+            android:name=".CarnetLiaisonDetailActivity"
+            android:label="@string/title_carnetliaison_detail"
+            android:parentActivityName=".CarnetLiaisonListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.rogerleoen.edeip_extranet.CarnetLiaisonListActivity" />
+        </activity>
+        <activity
+            android:name=".CahierTextSelectActivity"
+            android:label="@string/title_activity_cahier_texte_select"
+            android:parentActivityName=".AccueilActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.rogerleoen.edeip_extranet.AccueilActivity" />
+        </activity>
+        <activity
+            android:name=".CahierTextListActivity"
+            android:label="@string/title_cahiertext_list"
+            android:parentActivityName=".CahierTextSelectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.rogerleoen.edeip_extranet.CahierTextSelectActivity" />
+        </activity>
+        <activity
+            android:name=".CahierTextDetailActivity"
+            android:label="@string/title_cahiertext_detail"
+            android:parentActivityName=".CahierTextListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.rogerleoen.edeip_extranet.CahierTextListActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,21 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AccueilActivity">
+    <item
+        android:id="@+id/action_CarnetLiaison"
+        android:orderInCategory="100"
+        android:title="@string/action_liaison"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_CahierText"
+        android:orderInCategory="100"
+        android:title="@string/action_texte"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_deconnexion"
+        android:orderInCategory="100"
+        android:title="@string/action_deconnexion"
+        app:showAsAction="never" />
+</menu>
