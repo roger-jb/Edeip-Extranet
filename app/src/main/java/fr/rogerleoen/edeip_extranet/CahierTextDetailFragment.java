@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import fr.rogerleoen.edeip_extranet.dummy.DummyContentTexte;
+import fr.rogerleoen.edeip_extranet.objet.CahierText;
+import fr.rogerleoen.edeip_extranet.objet.CarnetLiaison;
 
 /**
  * A fragment representing a single CahierText detail screen.
@@ -27,7 +28,7 @@ public class CahierTextDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContentTexte.DummyItem mItem;
+    private CahierText mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,12 +45,14 @@ public class CahierTextDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = DummyContentTexte.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mItem = EdeipExtranet.storedData.getCahierTextById(getArguments().getInt(ARG_ITEM_ID));
+//            mItem = DummyContentTexte.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+//                appBarLayout.setTitle(mItem.getIdRedacteur().toString());
+                appBarLayout.setTitle(CarnetLiaison.class.toString());
             }
         }
     }
@@ -61,7 +64,7 @@ public class CahierTextDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.cahiertext_detail)).setText(mItem.details);
+            ((TextView) rootView.findViewById(R.id.cahiertext_detail)).setText(mItem.getContenuCahierTexte());
         }
 
         return rootView;

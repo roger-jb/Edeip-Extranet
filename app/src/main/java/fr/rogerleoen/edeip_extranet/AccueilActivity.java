@@ -24,6 +24,12 @@ public class AccueilActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        txtNomPrenom.setText(EdeipExtranet.getUser().getNomUtilisateur() + " " + EdeipExtranet.getUser().getPrenomUtilisateur());
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_accueil, menu);
         return true;

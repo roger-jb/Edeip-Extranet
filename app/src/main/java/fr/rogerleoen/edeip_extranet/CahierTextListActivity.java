@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -17,8 +18,10 @@ import android.widget.TextView;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import fr.rogerleoen.edeip_extranet.dummy.DummyContentTexte;
+//import fr.rogerleoen.edeip_extranet.dummy.DummyContentTexte;
+import fr.rogerleoen.edeip_extranet.objet.CahierText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,27 +69,42 @@ public class CahierTextListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_cahier_text, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
         switch (id){
             case android.R.id.home :
                 startActivity(new Intent(this, CahierTextSelectActivity.class));
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.action_CarnetLiaison :
+                startActivity(new Intent(this, CarnetLiaisonSelectActivity.class));
+                return true;
+            case R.id.action_CahierText :
+                startActivity(new Intent(this, CahierTextSelectActivity.class));
+                return true;
+            case R.id.action_deconnexion :
+                EdeipExtranet.Deconnexion();
+                startActivity(new Intent(this, LoginActivity.class));
+                return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContentTexte.ITEMS));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter((ArrayList<CahierText>) EdeipExtranet.storedData.lesCahierTexts/*DummyContentTexte.ITEMS*/));
     }
 
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final List<DummyContentTexte.DummyItem> mValues;
+        private final ArrayList<CahierText> mValues;
 
-        public SimpleItemRecyclerViewAdapter(List<DummyContentTexte.DummyItem> items) {
+        public SimpleItemRecyclerViewAdapter(ArrayList<CahierText> items) {
             mValues = items;
         }
 
@@ -100,15 +118,15 @@ public class CahierTextListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mIdView.setText(mValues.get(position).getIdCahierTexte().toString());
+            holder.mContentView.setText(mValues.get(position).getContenuCahierTexte());
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(CahierTextDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        arguments.putString(CahierTextDetailFragment.ARG_ITEM_ID, holder.mItem.getIdCahierTexte().toString());
                         CahierTextDetailFragment fragment = new CahierTextDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -117,7 +135,7 @@ public class CahierTextListActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, CahierTextDetailActivity.class);
-                        intent.putExtra(CahierTextDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        intent.putExtra(CahierTextDetailFragment.ARG_ITEM_ID, holder.mItem.getIdCahierTexte().toString());
 
                         context.startActivity(intent);
                     }
@@ -134,7 +152,7 @@ public class CahierTextListActivity extends AppCompatActivity {
             public final View mView;
             public final TextView mIdView;
             public final TextView mContentView;
-            public DummyContentTexte.DummyItem mItem;
+            public CahierText mItem;
 
             public ViewHolder(View view) {
                 super(view);

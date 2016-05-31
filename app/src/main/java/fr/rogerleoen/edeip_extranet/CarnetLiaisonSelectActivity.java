@@ -9,8 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
-public class CarnetLiaisonSelectActivity extends AppCompatActivity {
+import fr.rogerleoen.edeip_extranet.data.AsyncWebService;
+
+public class CarnetLiaisonSelectActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button btViewCarnetLiaison;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +24,9 @@ public class CarnetLiaisonSelectActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (EdeipExtranet.storedData.lesCarnetLiaisons.size() < 1){
+            AsyncWebService.getAllCarnetLiaison();
+        }
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -28,11 +36,14 @@ public class CarnetLiaisonSelectActivity extends AppCompatActivity {
 //            }
 //        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        btViewCarnetLiaison = (Button) findViewById(R.id.btViewCarnetLiaison);
+        btViewCarnetLiaison.setOnClickListener(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_cahier_text, menu);
+        getMenuInflater().inflate(R.menu.menu_carnet_liaison, menu);
         return true;
     }
 
@@ -52,5 +63,12 @@ public class CarnetLiaisonSelectActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == btViewCarnetLiaison){
+            startActivity(new Intent(this, CarnetLiaisonListActivity.class));
+        }
     }
 }

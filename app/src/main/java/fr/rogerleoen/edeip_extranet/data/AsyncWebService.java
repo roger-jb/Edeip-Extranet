@@ -21,8 +21,8 @@ import fr.rogerleoen.edeip_extranet.objet.*;
  * Created by Jean-Baptiste on 30/05/2016.
  */
 public class AsyncWebService {
-//    protected static String baseUrl = "http://192.168.10.3/edeip/";
-    protected static String baseUrl = "http://roger-leoen.ddns.net/edeip/";
+    protected static String baseUrl = "http://192.168.10.3/edeip/";
+//    protected static String baseUrl = "http://roger-leoen.ddns.net/edeip/";
 //    protected static String baseUrl = "http://edeip-lyon.fr/";
 
     protected static String HtmlDecodePost(String laChaine){
@@ -298,6 +298,7 @@ public class AsyncWebService {
         AsyncHttpClient unClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.add("get", "AllCahierTexte");
+        Log.e("RealmData", "Appel WS CahierText");
         unClient.get(baseUrl+url, params, new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String reponse){
@@ -309,6 +310,7 @@ public class AsyncWebService {
                     Type collectionType = new TypeToken<Collection<CahierText>>(){}.getType();
                     EdeipExtranet.storedData.lesCahierTexts = gRetour.fromJson(retour, collectionType);
                     EdeipExtranet.storedData.loadCahierText = true;
+                    Log.e("RealmData", "fin chargement des Cahier texte : "+EdeipExtranet.storedData.lesCahierTexts.size());
                 } catch (Throwable t){
                     Log.e("RealmData", "Erreur dans la recuperation des CahierText : " + t.toString());
                 }

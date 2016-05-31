@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import fr.rogerleoen.edeip_extranet.data.AsyncWebService;
+
 
 public class CahierTextSelectActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -20,6 +22,10 @@ public class CahierTextSelectActivity extends AppCompatActivity implements View.
         setContentView(R.layout.activity_cahier_text_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (EdeipExtranet.storedData.lesCahierTexts.size() < 1){
+            AsyncWebService.getAllCahierText();
+        }
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {

@@ -64,4 +64,13 @@ public class StoredData {
         }
         return null;
     }
+
+    public CahierText getCahierTextById(int idCahierText) {
+        for (CahierText unCahierText : lesCahierTexts){
+            if (unCahierText.getIdCahierTexte().equals(idCahierText)){
+                return unCahierText;
+            }
+        }
+        return null;
+    }
 }

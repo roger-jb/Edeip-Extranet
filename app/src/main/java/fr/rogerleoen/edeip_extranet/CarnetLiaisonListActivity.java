@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -66,11 +67,27 @@ public class CarnetLiaisonListActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_carnet_liaison, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
             case android.R.id.home :
                 startActivity(new Intent(this, CarnetLiaisonSelectActivity.class));
+                return true;
+            case R.id.action_CarnetLiaison :
+                startActivity(new Intent(this, CarnetLiaisonSelectActivity.class));
+                return true;
+            case R.id.action_CahierText :
+                startActivity(new Intent(this, CahierTextSelectActivity.class));
+                return true;
+            case R.id.action_deconnexion :
+                EdeipExtranet.Deconnexion();
+                startActivity(new Intent(this, LoginActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
