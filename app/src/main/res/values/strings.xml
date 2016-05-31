@@ -11,15 +11,18 @@
     <string name="error_incorrect_password">Le mot de passe est incorrect</string>
     <string name="error_field_required">Ce champ est requis</string>
 
+    <!-- titre des layout -->
     <string name="title_activity_login">EDEIP : Connexion</string>
     <string name="title_activity_accueil">EDEIP : Accueil</string>
     <string name="title_activity_carnet_liaison_select">EDEIP : Carnet de Liaison</string>
     <string name="title_activity_cahier_texte_select">EDEIP : Cahier de Texte</string>
     <string name="title_carnetliaison_list">EDEIP : Carnet de Liaison</string>
     <string name="title_carnetliaison_detail">EDEIP : Carnet de Liaison (détail)</string>
+    <string name="title_cahiertext_list">EDEIP : Cahier de Texte</string>
+    <string name="title_cahiertext_detail">EDEIP : Cahier de Texte (détail)</string>
+
+    <!-- liste menu -->
     <string name="action_liaison">Carnet de Liaison</string>
     <string name="action_texte">Cahier de Texte</string>
     <string name="action_deconnexion">Déconnexion</string>
-    <string name="title_cahiertext_list">CahierTexts</string>
-    <string name="title_cahiertext_detail">CahierText Detail</string>
 </resources>

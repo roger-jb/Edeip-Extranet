@@ -49,6 +49,22 @@ public class Utilisateur{
         dateInscriptionUtilisateur = unUtilisateur.getDateInscriptionUtilisateur();
     }
 
+    public void update(Utilisateur unUtilisateur) {
+        if (unUtilisateur.getIdUtilisateur()>0){
+            idUtilisateur = unUtilisateur.getIdUtilisateur();
+            nomUtilisateur = unUtilisateur.getNomUtilisateur();
+            prenomUtilisateur = unUtilisateur.getPrenomUtilisateur();
+            adr1Utilisateur = unUtilisateur.getAdr1Utilisateur();
+            adr2Utilisateur = unUtilisateur.getAdr2Utilisateur();
+            cpUtilisateur = unUtilisateur.getCpUtilisateur();
+            villeUtilisateur = unUtilisateur.getVilleUtilisateur();
+            actifUtilisateur = unUtilisateur.getActifUtilisateur();
+            mailUtilisateur = unUtilisateur.getMailUtilisateur();
+            dateNaissanceUtilisateur = unUtilisateur.getDateNaissanceUtilisateur();
+            dateInscriptionUtilisateur = unUtilisateur.getDateInscriptionUtilisateur();
+        }
+    }
+
     public Integer getIdUtilisateur() {
         return idUtilisateur;
     }

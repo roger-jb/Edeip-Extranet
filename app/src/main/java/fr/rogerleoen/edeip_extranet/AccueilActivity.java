@@ -35,14 +35,14 @@ public class AccueilActivity extends AppCompatActivity {
         switch (id){
             case R.id.action_CarnetLiaison :
                 startActivity(new Intent(this, CarnetLiaisonSelectActivity.class));
-                break;
+                return true;
             case R.id.action_CahierText :
                 startActivity(new Intent(this, CahierTextSelectActivity.class));
-                break;
+                return true;
             case R.id.action_deconnexion :
                 EdeipExtranet.Deconnexion();
                 startActivity(new Intent(this, LoginActivity.class));
-                break;
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

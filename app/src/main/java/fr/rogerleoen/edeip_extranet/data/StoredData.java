@@ -26,6 +26,18 @@ public class StoredData {
     public Collection<CarnetLiaison>    lesCarnetLiaisons   = new ArrayList<>();
     public Collection<CahierText>       lesCahierTexts      = new ArrayList<>();
 
+    //Boolean technique pour les chargement
+    public volatile Boolean loadConnexion       = false;
+    public volatile Boolean loadUtilisateur     = false;
+    public volatile Boolean loadAdministrateur  = false;
+    public volatile Boolean loadProfesseur      = false;
+    public volatile Boolean loadResponsable     = false;
+    public volatile Boolean loadEleve           = false;
+    public volatile Boolean loadMatiere         = false;
+    public volatile Boolean loadNiveau          = false;
+    public volatile Boolean loadCarnetLiaison   = false;
+    public volatile Boolean loadCahierText   = false;
+
     /**
      * chargement des données de la base de données
      */
@@ -34,6 +46,8 @@ public class StoredData {
         AsyncWebService.getAllNiveau();
         AsyncWebService.getAllUtilisateur();
         AsyncWebService.getAllMatiere();
+        AsyncWebService.getAllCarnetLiaison();
+        AsyncWebService.getAllCahierText();
     }
 
     /**
@@ -41,4 +55,13 @@ public class StoredData {
      */
     //TODO : gérer le refresh pour les différentes données
     public void refreshData(){}
+
+    public Utilisateur getUtilisateurById(Integer idUtilisateur) {
+        for (Utilisateur unUtilisateur : lesUtilisateurs){
+            if (unUtilisateur.getIdUtilisateur().equals(idUtilisateur)){
+                return unUtilisateur;
+            }
+        }
+        return null;
+    }
 }
