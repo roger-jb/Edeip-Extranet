@@ -8,8 +8,8 @@ import com.google.gson.annotations.SerializedName;
  */
 public class CarnetLiaison {
     private Integer idCarnetLiaison;
-    @SerializedName("contenuCarneLiaison")
-    private String contennuCarnetLiaison;
+    @SerializedName("contenuCarnetLiaison")
+    private String contenuCarnetLiaison;
     private Integer idReponse;
     private Integer idRedacteur;
     @SerializedName("dateRedaction")
@@ -24,12 +24,12 @@ public class CarnetLiaison {
         this.idCarnetLiaison = idCarnetLiaison;
     }
 
-    public String getContennuCarnetLiaison() {
-        return contennuCarnetLiaison;
+    public String getContenuCarnetLiaison() {
+        return contenuCarnetLiaison;
     }
 
-    public void setContennuCarnetLiaison(String contennuCarnetLiaison) {
-        this.contennuCarnetLiaison = contennuCarnetLiaison;
+    public void setContenuCarnetLiaison(String contenuCarnetLiaison) {
+        this.contenuCarnetLiaison = contenuCarnetLiaison;
     }
 
     public Integer getIdReponse() {

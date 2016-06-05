@@ -7,8 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -18,11 +17,9 @@ import android.widget.TextView;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-//import fr.rogerleoen.edeip_extranet.dummy.DummyContentTexte;
 import fr.rogerleoen.edeip_extranet.objet.CahierText;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * An activity representing a list of CahierTexts. This activity
@@ -126,16 +123,19 @@ public class CahierTextListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(CahierTextDetailFragment.ARG_ITEM_ID, holder.mItem.getIdCahierTexte().toString());
+                        Log.e("holder", holder.mItem.getIdCahierTexte().toString());
+//                        arguments.putString(CahierTextDetailFragment.ARG_ITEM_ID, holder.mItem.getIdCahierTexte().toString());
                         CahierTextDetailFragment fragment = new CahierTextDetailFragment();
                         fragment.setArguments(arguments);
+                    fragment.ARG_ITEM_ID = holder.mItem;
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.cahiertext_detail_container, fragment)
                                 .commit();
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, CahierTextDetailActivity.class);
-                        intent.putExtra(CahierTextDetailFragment.ARG_ITEM_ID, holder.mItem.getIdCahierTexte().toString());
+                        CahierTextDetailFragment.ARG_ITEM_ID = holder.mItem;
+//                        intent.putExtra(CahierTextDetailFragment.ARG_ITEM_ID, holder.mItem.getIdCahierTexte().toString());
 
                         context.startActivity(intent);
                     }

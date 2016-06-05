@@ -36,7 +36,7 @@ public class StoredData {
     public volatile Boolean loadMatiere         = false;
     public volatile Boolean loadNiveau          = false;
     public volatile Boolean loadCarnetLiaison   = false;
-    public volatile Boolean loadCahierText   = false;
+    public volatile Boolean loadCahierText      = false;
 
     /**
      * chargement des données de la base de données
@@ -65,10 +65,19 @@ public class StoredData {
         return null;
     }
 
-    public CahierText getCahierTextById(int idCahierText) {
+    public CahierText getCahierTextById(Integer idCahierText) {
         for (CahierText unCahierText : lesCahierTexts){
             if (unCahierText.getIdCahierTexte().equals(idCahierText)){
                 return unCahierText;
+            }
+        }
+        return null;
+    }
+
+    public CarnetLiaison getCarnetLiaisonById(Integer idCarnetLiaison) {
+        for (CarnetLiaison unCarnetLiaison : lesCarnetLiaisons){
+            if (unCarnetLiaison.getIdCarnetLiaison().equals(idCarnetLiaison)){
+                return unCarnetLiaison;
             }
         }
         return null;
