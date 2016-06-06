@@ -21,8 +21,8 @@ import fr.rogerleoen.edeip_extranet.objet.*;
  * Created by Jean-Baptiste on 30/05/2016.
  */
 public class AsyncWebService {
-    protected static String baseUrl = "http://192.168.10.3/edeip/";
-//    protected static String baseUrl = "http://roger-leoen.ddns.net/edeip/";
+//    protected static String baseUrl = "http://192.168.10.3/edeip/";
+    protected static String baseUrl = "http://roger-leoen.ddns.net/edeip/";
 //    protected static String baseUrl = "http://edeip-lyon.fr/";
 
     protected static String HtmlDecodePost(String laChaine){
@@ -34,13 +34,12 @@ public class AsyncWebService {
         AsyncHttpClient unClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.add("get", "AllConnexion");
-//        Log.e("StoreData", "getAllConnexion");
         unClient.get(baseUrl+url, params, new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String reponse){
                 String retour = HtmlDecodePost(reponse);
                 EdeipExtranet.storedData.loadConnexion = false;
-                EdeipExtranet.storedData.lesConnexions = new ArrayList<Connexion>();
+                EdeipExtranet.storedData.lesConnexions = new ArrayList<>();
                 try {
                     Gson gRetour = new Gson();
                     Type collectionType = new TypeToken<Collection<Connexion>>(){}.getType();
@@ -49,7 +48,6 @@ public class AsyncWebService {
                 } catch (Throwable t){
                     Log.e("RealmData", "Erreur dans la recuperation des Connexions : " + t.toString());
                 }
-//                Log.i("StoredData", "Connexion Load");
             }
             @Override
             public void onFailure(int statusCode, Throwable error, String content){
@@ -63,22 +61,26 @@ public class AsyncWebService {
         AsyncHttpClient unClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.add("get", "AllNiveau");
-//        Log.e("StoreData", "getAllNiveau");
         unClient.get(baseUrl+url, params, new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String reponse){
                 String retour = HtmlDecodePost(reponse);
                 EdeipExtranet.storedData.loadNiveau = false;
-                EdeipExtranet.storedData.lesNiveaux = new ArrayList<Niveau>();
+                EdeipExtranet.storedData.lesNiveaux = new ArrayList<>();
                 try {
                     Gson gRetour = new Gson();
                     Type collectionType = new TypeToken<Collection<Niveau>>(){}.getType();
                     EdeipExtranet.storedData.lesNiveaux = gRetour.fromJson(retour, collectionType);
                     EdeipExtranet.storedData.loadNiveau = true;
+                    if (EdeipExtranet.storedData.loadModule){
+                        linkModuleNiveau();
+                    }
+                    else {
+                        AsyncWebService.getAllModules();
+                    }
                 } catch (Throwable t){
                     Log.e("RealmData", "Erreur dans la recuperation des Niveaux : " + t.toString());
                 }
-//                Log.i("StoredData", "Niveau Load");
             }
             @Override
             public void onFailure(int statusCode, Throwable error, String content){
@@ -92,13 +94,12 @@ public class AsyncWebService {
         AsyncHttpClient unClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.add("get","AllUtilisateur");
-//        Log.e("StoreData", "getAllUtilisateur");
         unClient.get(baseUrl+url, params, new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String reponse){
                 String retour = HtmlDecodePost(reponse);
                 EdeipExtranet.storedData.loadUtilisateur = false;
-                EdeipExtranet.storedData.lesUtilisateurs = new ArrayList<Utilisateur>();
+                EdeipExtranet.storedData.lesUtilisateurs = new ArrayList<>();
                 try{
                     Gson gRetour = new Gson();
                     Type collectionType = new TypeToken<Collection<Utilisateur>>(){}.getType();
@@ -112,7 +113,6 @@ public class AsyncWebService {
                 } catch (Throwable t){
                     Log.e("RealmData", "Erreur dans la recuperation des Utilisateurs : " + t.toString());
                 }
-//                Log.i("StoredData", "Utilisateur Load");
             }
             @Override
             public void onFailure(int statusCode, Throwable error, String content){
@@ -131,7 +131,7 @@ public class AsyncWebService {
             public void onSuccess(String reponse){
                 String retour = HtmlDecodePost(reponse);
                 EdeipExtranet.storedData.loadMatiere = false;
-                EdeipExtranet.storedData.lesMatieres = new ArrayList<Matiere>();
+                EdeipExtranet.storedData.lesMatieres = new ArrayList<>();
                 try{
                     Gson gRetour = new Gson();
                     Type collectionType = new TypeToken<Collection<Matiere>>(){}.getType();
@@ -199,7 +199,7 @@ public class AsyncWebService {
                 public void onSuccess(String reponse){
                     String retour = HtmlDecodePost(reponse);
                     EdeipExtranet.storedData.loadProfesseur = false;
-                    EdeipExtranet.storedData.lesProfesseurs = new ArrayList<Professeur>();
+                    EdeipExtranet.storedData.lesProfesseurs = new ArrayList<>();
                     try {
                         Gson gRetour = new Gson();
                         Type collectionType = new TypeToken<Collection<Professeur>>(){}.getType();
@@ -235,7 +235,7 @@ public class AsyncWebService {
                 public void onSuccess(String reponse){
                     String retour = HtmlDecodePost(reponse);
                     EdeipExtranet.storedData.loadResponsable = false;
-                    EdeipExtranet.storedData.lesResponsables = new ArrayList<Responsable>();
+                    EdeipExtranet.storedData.lesResponsables = new ArrayList<>();
                     try {
                         Gson gRetour = new Gson();
                         Type collectionType = new TypeToken<Collection<Responsable>>(){}.getType();
@@ -271,7 +271,7 @@ public class AsyncWebService {
                 public void onSuccess(String reponse){
                     String retour = HtmlDecodePost(reponse);
                     EdeipExtranet.storedData.loadEleve = false;
-                    EdeipExtranet.storedData.lesEleves = new ArrayList<Eleve>();
+                    EdeipExtranet.storedData.lesEleves = new ArrayList<>();
                     try {
                         Gson gRetour = new Gson();
                         Type collectionType = new TypeToken<Collection<Responsable>>(){}.getType();
@@ -298,19 +298,17 @@ public class AsyncWebService {
         AsyncHttpClient unClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.add("get", "AllCahierTexte");
-        Log.e("RealmData", "Appel WS CahierText");
         unClient.get(baseUrl+url, params, new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String reponse){
                 String retour = HtmlDecodePost(reponse);
                 EdeipExtranet.storedData.loadCahierText = false;
-                EdeipExtranet.storedData.lesCahierTexts = new ArrayList<CahierText>();
+                EdeipExtranet.storedData.lesCahierTexts = new ArrayList<>();
                 try {
                     Gson gRetour = new Gson();
                     Type collectionType = new TypeToken<Collection<CahierText>>(){}.getType();
                     EdeipExtranet.storedData.lesCahierTexts = gRetour.fromJson(retour, collectionType);
                     EdeipExtranet.storedData.loadCahierText = true;
-                    Log.e("RealmData", "fin chargement des Cahier texte : "+EdeipExtranet.storedData.lesCahierTexts.size());
                 } catch (Throwable t){
                     Log.e("RealmData", "Erreur dans la recuperation des CahierText : " + t.toString());
                 }
@@ -332,7 +330,7 @@ public class AsyncWebService {
             public void onSuccess(String reponse){
                 String retour = HtmlDecodePost(reponse);
                 EdeipExtranet.storedData.loadCarnetLiaison = false;
-                EdeipExtranet.storedData.lesCarnetLiaisons = new ArrayList<CarnetLiaison>();
+                EdeipExtranet.storedData.lesCarnetLiaisons = new ArrayList<>();
                 try {
                     Gson gRetour = new Gson();
                     Type collectionType = new TypeToken<Collection<CarnetLiaison>>(){}.getType();
@@ -342,6 +340,165 @@ public class AsyncWebService {
                     Log.e("RealmData", "Erreur dans la recuperation des CarnetLiaison : " + t.toString());
                 }
             }
+            @Override
+            public void onFailure(int statusCode, Throwable error, String content){
+                Log.e("RealmData", "Erreur dans l'appel WS des CarnetLiaison - " + statusCode + " : " + error.toString());
+            }
         });
+    }
+
+    public static void getAllModules(){
+        String url = "api/RealmData.php";
+        AsyncHttpClient unClient = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.add("get", "AllModules");
+        unClient.get(baseUrl+url, params, new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String reponse){
+                String retour = HtmlDecodePost(reponse);
+                EdeipExtranet.storedData.loadModule = false;
+                EdeipExtranet.storedData.lesModules = new ArrayList<>();
+                try {
+                    Gson gRetour = new Gson();
+                    Type collectionType = new TypeToken<Collection<Module>>(){}.getType();
+                    EdeipExtranet.storedData.lesModules = gRetour.fromJson(retour, collectionType);
+                    EdeipExtranet.storedData.loadModule = true;
+                    if (EdeipExtranet.storedData.loadNiveau){
+                        linkModuleNiveau();
+                    }
+                    else {
+                        AsyncWebService.getAllNiveau();
+                    }
+                } catch (Throwable t){
+                    Log.e("RealmData", "Erreur dans la recuperation des Modules : " + t.toString());
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Throwable error, String content){
+                Log.e("RealmData", "Erreur dans l'appel WS des Modules - " + statusCode + " : " + error.toString());
+            }
+        });
+    }
+
+    public static void getAllMatiereNiveau(){
+        String url = "api/RealmData.php";
+        AsyncHttpClient unClient = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.add("get", "AllMatiereNiveau");
+        unClient.get(baseUrl+url, params, new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String reponse){
+                String retour = HtmlDecodePost(reponse);
+                EdeipExtranet.storedData.loadMatiereNiveau = false;
+                EdeipExtranet.storedData.lesMatiereNiveau = new ArrayList<>();
+                try {
+                    Gson gRetour = new Gson();
+                    Type collectionType = new TypeToken<Collection<Module>>(){}.getType();
+                    EdeipExtranet.storedData.lesMatiereNiveau = gRetour.fromJson(retour, collectionType);
+                    EdeipExtranet.storedData.loadMatiereNiveau = true;
+                } catch (Throwable t){
+                    Log.e("RealmData", "Erreur dans la recuperation des MatiereNiveau : " + t.toString());
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Throwable error, String content){
+                Log.e("RealmData", "Erreur dans l'appel WS des MatiereNiveau - " + statusCode + " : " + error.toString());
+            }
+        });
+    }
+
+    public static void getAllEleveMatiereNiveau(){
+        String url = "api/RealmData.php";
+        AsyncHttpClient unClient = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.add("get", "AllEleveMatiereNiveau");
+        unClient.get(baseUrl+url, params, new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String reponse){
+                String retour = HtmlDecodePost(reponse);
+                EdeipExtranet.storedData.loadEleveMatiereNiveau = false;
+                EdeipExtranet.storedData.lesEleveMatiereNiveau = new ArrayList<>();
+                try {
+                    Gson gson = new Gson();
+                    Type collectionType = new TypeToken<Collection<EleveMatiereNiveau>>(){}.getType();
+                    EdeipExtranet.storedData.lesEleveMatiereNiveau = gson.fromJson(retour, collectionType);
+                    EdeipExtranet.storedData.loadEleveMatiereNiveau = false;
+                } catch (Throwable t){
+                    Log.e("RealmData", "Erreur dans la recuperation des EleveMatiereNiveau : " + t.toString());
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Throwable error, String content){
+                Log.e("RealmData", "Erreur dans l'appel WS des EleveMatiereNiveau - " + statusCode + " : " + error.toString());
+            }
+        });
+    }
+
+    public static void getAllProfesseurMatiereNiveau(){
+        String url = "api/RealmData.php";
+        AsyncHttpClient unClient = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.add("get", "AllProfesseurMatiereNiveau");
+        unClient.get(baseUrl+url, params, new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String reponse){
+                String retour = HtmlDecodePost(reponse);
+                EdeipExtranet.storedData.loadProfesseurMatiereNiveau = false;
+                EdeipExtranet.storedData.lesProfesseurMatiereNiveau = new ArrayList<>();
+                try {
+                    Gson gson = new Gson();
+                    Type collectionType = new TypeToken<Collection<ProfesseurMatiereNiveau>>(){}.getType();
+                    EdeipExtranet.storedData.lesProfesseurMatiereNiveau = gson.fromJson(retour, collectionType);
+                    EdeipExtranet.storedData.loadProfesseurMatiereNiveau = false;
+                } catch (Throwable t){
+                    Log.e("RealmData", "Erreur dans la recuperation des ProfesseurMatiereNiveau : " + t.toString());
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Throwable error, String content){
+                Log.e("RealmData", "Erreur dans l'appel WS des ProfesseurMatiereNiveau - " + statusCode + " : " + error.toString());
+            }
+        });
+    }
+
+    public static void getAllEleveResponsabe(){
+        String url = "api/RealmData.php";
+        AsyncHttpClient unClient = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.add("get", "AllEleveResponsable");
+        unClient.get(baseUrl+url, params, new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String reponse){
+                String retour = HtmlDecodePost(reponse);
+                EdeipExtranet.storedData.loadEleveResponsable = false;
+                EdeipExtranet.storedData.lesEleveResponsable = new ArrayList<>();
+                try {
+                    Gson gson = new Gson();
+                    Type collectionType = new TypeToken<Collection<EleveResponsable>>(){}.getType();
+                    EdeipExtranet.storedData.lesEleveResponsable = gson.fromJson(retour, collectionType);
+                    EdeipExtranet.storedData.loadEleveResponsable = false;
+                } catch (Throwable t){
+                    Log.e("RealmData", "Erreur dans la recuperation des EleveResponsable : " + t.toString());
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Throwable error, String content){
+                Log.e("RealmData", "Erreur dans l'appel WS des EleveResponsable - " + statusCode + " : " + error.toString());
+            }
+        });
+    }
+
+    private static void linkModuleNiveau(){
+        for (Niveau unNiveau : EdeipExtranet.storedData.lesNiveaux){
+            unNiveau.setModule(EdeipExtranet.storedData.getModuleById(unNiveau.getIdModule()));
+            EdeipExtranet.storedData.getModuleById(unNiveau.getIdModule()).addNiveau(unNiveau);
+        }
+    }
+
+    private static void linkMatiereNiveau(){
+        for (MatiereNiveau unMatiereNiveau : EdeipExtranet.storedData.lesMatiereNiveau){
+            EdeipExtranet.storedData.getMatiereById(unMatiereNiveau.getIdMatiere()).addNiveau(EdeipExtranet.storedData.getNiveauById(unMatiereNiveau.getIdNiveau()));
+            EdeipExtranet.storedData.getNiveauById(unMatiereNiveau.getIdNiveau()).addMatiere(EdeipExtranet.storedData.getMatiereById(unMatiereNiveau.getIdMatiere()));
+        }
     }
 }
