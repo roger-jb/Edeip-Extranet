@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import fr.rogerleoen.edeip_extranet.EdeipExtranet;
+
 /**
  * Application Edeip-Extranet
  * Created by Jean-Baptiste on 16/05/2016.
@@ -152,4 +154,77 @@ public class Utilisateur{
     public void setDateInscriptionUtilisateur(String dateInscriptionUtilisateur) {
         this.dateInscriptionUtilisateur = dateInscriptionUtilisateur;
     }
+
+    public boolean estResponsable(){
+        for (Responsable unResponsable : EdeipExtranet.storedData.lesResponsables){
+            if (unResponsable.getIdResponsable().equals(this.getIdUtilisateur())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean estProfesseur(){
+        for (Professeur unProf : EdeipExtranet.storedData.lesProfesseurs){
+            if (unProf.getIdUtilisateur().equals(this.getIdUtilisateur())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean estEleve(){
+        for (Eleve unEleve : EdeipExtranet.storedData.lesEleves){
+            if (unEleve.getIdEleve().equals(this.getIdUtilisateur())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean estAdministrateur(){
+        for (Administrateur unAdmin : EdeipExtranet.storedData.lesAdministrateurs){
+            if (unAdmin.getIdUtilisateur().equals(this.getIdUtilisateur())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Responsable getResponsable(){
+        for (Responsable unResponsable : EdeipExtranet.storedData.lesResponsables){
+            if (unResponsable.getIdResponsable().equals(this.getIdUtilisateur())){
+                return unResponsable;
+            }
+        }
+        return null;
+    }
+
+    public Professeur getProfesseur(){
+        for (Professeur unProf : EdeipExtranet.storedData.lesProfesseurs){
+            if (unProf.getIdUtilisateur().equals(this.getIdUtilisateur())){
+                return unProf;
+            }
+        }
+        return null;
+    }
+
+    public Eleve getEleve(){
+        for (Eleve unEleve : EdeipExtranet.storedData.lesEleves){
+            if (unEleve.getIdEleve().equals(this.getIdUtilisateur())){
+                return unEleve;
+            }
+        }
+        return null;
+    }
+
+    public Administrateur getAdministrateur(){
+        for (Administrateur unAdmin : EdeipExtranet.storedData.lesAdministrateurs){
+            if (unAdmin.getIdUtilisateur().equals(this.getIdUtilisateur())){
+                return unAdmin;
+            }
+        }
+        return null;
+    }
+
 }

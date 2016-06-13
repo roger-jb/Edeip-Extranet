@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import fr.rogerleoen.edeip_extranet.EdeipExtranet;
+
 /**
  * Application Edeip-Extranet
  * Created by Jean-Baptiste on 26/05/2016.
@@ -52,5 +54,14 @@ public class Matiere {
             }
         }
         return null;
+    }
+
+    public static Matiere getByIdMatiereNiveau(Integer idMatiereNiveau){
+        for (MatiereNiveau uneMatiereNiveau : EdeipExtranet.storedData.lesMatiereNiveau){
+            if (uneMatiereNiveau.getIdMatiereNiveau().equals(idMatiereNiveau)){
+                return EdeipExtranet.storedData.getMatiereById(uneMatiereNiveau.getIdMatiere());
+            }
+        }
+        return new Matiere();
     }
 }

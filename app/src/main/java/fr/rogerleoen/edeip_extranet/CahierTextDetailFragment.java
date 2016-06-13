@@ -45,7 +45,12 @@ public class CahierTextDetailFragment extends Fragment {
         Activity activity = this.getActivity();
         CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
         if (appBarLayout != null) {
-            appBarLayout.setTitle(mItem.getDateRealisation());
+            appBarLayout.setTitle(
+                    EdeipExtranet.storedData.getMatiereByIdMatiereNiveau(CahierTextDetailFragment.ARG_ITEM_ID.getIdMatiereNiveau()).getLibelleMatiere()
+                            +" ("
+                            +CahierTextDetailFragment.ARG_ITEM_ID.getDateRealisation()
+                            +")"
+            );
         }
     }
 
@@ -57,7 +62,6 @@ public class CahierTextDetailFragment extends Fragment {
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.cahiertext_detail)).setText(mItem.getContenuCahierTexte());
         }
-
         return rootView;
     }
 }

@@ -22,7 +22,7 @@ public class CahierTextDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cahiertext_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        toolbar.setTitle(CahierTextDetailFragment.ARG_ITEM_ID.getDateRealisation());
+        toolbar.setTitle(EdeipExtranet.storedData.getMatiereByIdMatiereNiveau(CahierTextDetailFragment.ARG_ITEM_ID.getIdMatiereNiveau()).getLibelleMatiere()+" ("+CahierTextDetailFragment.ARG_ITEM_ID.getDateRealisation()+")");
         setSupportActionBar(toolbar);
 
         // Show the Up button in the action bar.
@@ -75,7 +75,7 @@ public class CahierTextDetailActivity extends AppCompatActivity {
                 navigateUpTo(new Intent(this, CahierTextListActivity.class));
                 return true;
             case R.id.action_CarnetLiaison :
-                startActivity(new Intent(this, CarnetLiaisonSelectActivity.class));
+                startActivity(new Intent(this, CarnetLiaisonListActivity.class));
                 return true;
             case R.id.action_CahierText :
                 startActivity(new Intent(this, CahierTextSelectActivity.class));

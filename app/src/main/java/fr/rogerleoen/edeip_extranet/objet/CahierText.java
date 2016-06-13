@@ -64,4 +64,5 @@ public class CahierText {
     public void setDateRedaction(String dateRedaction) {
         this.dateRedaction = dateRedaction;
     }
+
 }

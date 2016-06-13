@@ -16,11 +16,9 @@ import android.widget.TextView;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import fr.rogerleoen.edeip_extranet.dummy.DummyContentLiaison;
 import fr.rogerleoen.edeip_extranet.objet.CarnetLiaison;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -78,10 +76,10 @@ public class CarnetLiaisonListActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case android.R.id.home :
-                startActivity(new Intent(this, CarnetLiaisonSelectActivity.class));
+                startActivity(new Intent(this, AccueilActivity.class));
                 return true;
             case R.id.action_CarnetLiaison :
-                startActivity(new Intent(this, CarnetLiaisonSelectActivity.class));
+                startActivity(new Intent(this, CarnetLiaisonListActivity.class));
                 return true;
             case R.id.action_CahierText :
                 startActivity(new Intent(this, CahierTextSelectActivity.class));
@@ -128,7 +126,6 @@ public class CarnetLiaisonListActivity extends AppCompatActivity {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
 
-//                        arguments.putString(CarnetLiaisonDetailFragment.ARG_ITEM_ID, holder.mItem.id);
                         CarnetLiaisonDetailFragment fragment = new CarnetLiaisonDetailFragment();
                         fragment.setArguments(arguments);
                         fragment.ARG_ITEM_ID = holder.mItem;
@@ -139,7 +136,6 @@ public class CarnetLiaisonListActivity extends AppCompatActivity {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, CarnetLiaisonDetailActivity.class);
                         CarnetLiaisonDetailFragment.ARG_ITEM_ID = holder.mItem;
-//                        intent.putExtra(CarnetLiaisonDetailFragment.ARG_ITEM_ID, holder.mItem.id);
 
                         context.startActivity(intent);
                     }

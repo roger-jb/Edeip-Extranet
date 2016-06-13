@@ -3,6 +3,8 @@ package fr.rogerleoen.edeip_extranet.objet;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import fr.rogerleoen.edeip_extranet.EdeipExtranet;
+
 /**
  * Application Edeip-Extranet
  * Created by Jean-Baptiste on 17/05/2016.
@@ -46,5 +48,14 @@ public class Eleve extends Utilisateur {
             }
         }
         return leResponsable;
+    }
+
+    public static Eleve getById(Integer idEleve){
+        for (Eleve unEleve : EdeipExtranet.storedData.lesEleves){
+            if (unEleve.getIdEleve().equals(idEleve)){
+                return unEleve;
+            }
+        }
+        return null;
     }
 }

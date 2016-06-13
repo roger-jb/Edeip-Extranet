@@ -3,7 +3,7 @@ package fr.rogerleoen.edeip_extranet;
 import android.app.Application;
 
 import fr.rogerleoen.edeip_extranet.data.StoredData;
-import fr.rogerleoen.edeip_extranet.objet.Utilisateur;
+import fr.rogerleoen.edeip_extranet.objet.*;
 
 /**
  * Application Edeip-Extranet
@@ -31,6 +31,42 @@ public class EdeipExtranet extends Application {
                 break;
             }
         }
+    }
+
+    public static Boolean estAdministrateur(){
+        for (Administrateur unAdministrateur : EdeipExtranet.storedData.lesAdministrateurs){
+            if (unAdministrateur.getIdUtilisateur().equals(EdeipExtranet.user.getIdUtilisateur())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Boolean estEleve(){
+        for (Eleve unEleve : EdeipExtranet.storedData.lesEleves){
+            if (unEleve.getIdUtilisateur().equals(EdeipExtranet.user.getIdUtilisateur())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Boolean estProfesseur(){
+        for (Professeur unProfesseur : EdeipExtranet.storedData.lesProfesseurs){
+            if (unProfesseur.getIdUtilisateur().equals(EdeipExtranet.user.getIdUtilisateur())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Boolean estResponsable(){
+        for (Responsable unResponsable : EdeipExtranet.storedData.lesResponsables){
+            if (unResponsable.getIdResponsable().equals(EdeipExtranet.user.getIdUtilisateur())){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void Deconnexion() {

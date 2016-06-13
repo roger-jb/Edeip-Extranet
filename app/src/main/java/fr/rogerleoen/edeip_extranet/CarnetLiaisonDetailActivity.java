@@ -67,7 +67,7 @@ public class CarnetLiaisonDetailActivity extends AppCompatActivity {
                 navigateUpTo(new Intent(this, CarnetLiaisonListActivity.class));
                 return true;
             case R.id.action_CarnetLiaison :
-                startActivity(new Intent(this, CarnetLiaisonSelectActivity.class));
+                startActivity(new Intent(this, CarnetLiaisonListActivity.class));
                 return true;
             case R.id.action_CahierText :
                 startActivity(new Intent(this, CahierTextSelectActivity.class));

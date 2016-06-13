@@ -79,7 +79,7 @@ public class CahierTextListActivity extends AppCompatActivity {
                 startActivity(new Intent(this, CahierTextSelectActivity.class));
                 return true;
             case R.id.action_CarnetLiaison :
-                startActivity(new Intent(this, CarnetLiaisonSelectActivity.class));
+                startActivity(new Intent(this, CarnetLiaisonListActivity.class));
                 return true;
             case R.id.action_CahierText :
                 startActivity(new Intent(this, CahierTextSelectActivity.class));
@@ -93,7 +93,7 @@ public class CahierTextListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter((ArrayList<CahierText>) EdeipExtranet.storedData.lesCahierTexts/*DummyContentTexte.ITEMS*/));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter((ArrayList<CahierText>) EdeipExtranet.storedData.lesCahierTexts));
     }
 
     public class SimpleItemRecyclerViewAdapter
@@ -115,8 +115,15 @@ public class CahierTextListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).getIdCahierTexte().toString());
-            holder.mContentView.setText(mValues.get(position).getContenuCahierTexte());
+//            holder.mIdView.setText(mValues.get(position).getIdCahierTexte().toString());
+            holder.mIdView.setText(
+                    EdeipExtranet.storedData.getMatiereByIdMatiereNiveau(mValues.get(position).getIdMatiereNiveau()).getLibelleMatiere()
+//                    + "\n" +
+//                    mValues.get(position).getDateRealisation()
+            );
+//            holder.mContentView.setText(mValues.get(position).getContenuCahierTexte());
+            holder.mContentView.setText("Pour le : " + mValues.get(position).getDateRealisation());
+
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override

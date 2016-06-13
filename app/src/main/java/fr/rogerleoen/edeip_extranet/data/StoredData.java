@@ -4,6 +4,7 @@ package fr.rogerleoen.edeip_extranet.data;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import fr.rogerleoen.edeip_extranet.EdeipExtranet;
 import fr.rogerleoen.edeip_extranet.objet.*;
 
 /**
@@ -61,6 +62,7 @@ public class StoredData {
         AsyncWebService.getAllCarnetLiaison();
         AsyncWebService.getAllCahierText();
 
+        AsyncWebService.getAllMatiereNiveau();
     }
 
     /**
@@ -113,6 +115,19 @@ public class StoredData {
         }
         return null;
     }
+
+
+    public Matiere getMatiereByIdMatiereNiveau(Integer idMatiereNiveau) {
+        if (EdeipExtranet.storedData.lesMatiereNiveau.size()>0){
+            for (MatiereNiveau uneMatiereNiveau : EdeipExtranet.storedData.lesMatiereNiveau) {
+                if (uneMatiereNiveau.getIdMatiereNiveau().equals(idMatiereNiveau)) {
+                    return EdeipExtranet.storedData.getMatiereById(uneMatiereNiveau.getIdMatiere());
+                }
+            }
+        }
+        return new Matiere();
+    }
+
 
     public Module getModuleById(Integer idModule){
         for (Module unModule : lesModules){

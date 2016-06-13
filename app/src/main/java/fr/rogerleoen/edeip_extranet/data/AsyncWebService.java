@@ -72,14 +72,11 @@ public class AsyncWebService {
                     Type collectionType = new TypeToken<Collection<Niveau>>(){}.getType();
                     EdeipExtranet.storedData.lesNiveaux = gRetour.fromJson(retour, collectionType);
                     EdeipExtranet.storedData.loadNiveau = true;
-                    if (EdeipExtranet.storedData.loadModule){
-                        linkModuleNiveau();
-                    }
-                    else {
+                    if (!EdeipExtranet.storedData.loadModule){
                         AsyncWebService.getAllModules();
                     }
                 } catch (Throwable t){
-                    Log.e("RealmData", "Erreur dans la recuperation des Niveaux : " + t.toString());
+                    Log.e("RealmData", "Erreur dans la recuperation des Niveaux : " + t.getMessage());
                 }
             }
             @Override
@@ -351,7 +348,8 @@ public class AsyncWebService {
         String url = "api/RealmData.php";
         AsyncHttpClient unClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        params.add("get", "AllModules");
+        params.add("get", "AllModule");
+        Log.i("StoredData", "recup des modules");
         unClient.get(baseUrl+url, params, new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String reponse){
@@ -363,14 +361,12 @@ public class AsyncWebService {
                     Type collectionType = new TypeToken<Collection<Module>>(){}.getType();
                     EdeipExtranet.storedData.lesModules = gRetour.fromJson(retour, collectionType);
                     EdeipExtranet.storedData.loadModule = true;
-                    if (EdeipExtranet.storedData.loadNiveau){
-                        linkModuleNiveau();
-                    }
-                    else {
+                    Log.i("StoredData", "loadModule OK");
+                    if (!EdeipExtranet.storedData.loadNiveau){
                         AsyncWebService.getAllNiveau();
                     }
                 } catch (Throwable t){
-                    Log.e("RealmData", "Erreur dans la recuperation des Modules : " + t.toString());
+                    Log.e("RealmData", "Erreur dans la recuperation des Modules : " + t.getMessage());
                 }
             }
             @Override
@@ -393,7 +389,7 @@ public class AsyncWebService {
                 EdeipExtranet.storedData.lesMatiereNiveau = new ArrayList<>();
                 try {
                     Gson gRetour = new Gson();
-                    Type collectionType = new TypeToken<Collection<Module>>(){}.getType();
+                    Type collectionType = new TypeToken<Collection<MatiereNiveau>>(){}.getType();
                     EdeipExtranet.storedData.lesMatiereNiveau = gRetour.fromJson(retour, collectionType);
                     EdeipExtranet.storedData.loadMatiereNiveau = true;
                 } catch (Throwable t){
@@ -489,16 +485,22 @@ public class AsyncWebService {
     }
 
     private static void linkModuleNiveau(){
-        for (Niveau unNiveau : EdeipExtranet.storedData.lesNiveaux){
-            unNiveau.setModule(EdeipExtranet.storedData.getModuleById(unNiveau.getIdModule()));
-            EdeipExtranet.storedData.getModuleById(unNiveau.getIdModule()).addNiveau(unNiveau);
+        Log.e("storedData", "linkModuleNiveau");
+        Log.e("storedData", "lesNiveaux.size() : " + Integer.toString(EdeipExtranet.storedData.lesNiveaux.size()));
+        Log.e("storedData", "lesModules.size() : " + Integer.toString(EdeipExtranet.storedData.lesModules.size()));
+        if (EdeipExtranet.storedData.lesNiveaux.size()>0 && EdeipExtranet.storedData.lesModules.size() > 0) {
+            for (Niveau unNiveau : EdeipExtranet.storedData.lesNiveaux) {
+                unNiveau.setModule(EdeipExtranet.storedData.getModuleById(unNiveau.getIdModule()));
+                EdeipExtranet.storedData.getModuleById(unNiveau.getIdModule()).addNiveau(unNiveau);
+            }
         }
     }
 
     private static void linkMatiereNiveau(){
-        for (MatiereNiveau unMatiereNiveau : EdeipExtranet.storedData.lesMatiereNiveau){
-            EdeipExtranet.storedData.getMatiereById(unMatiereNiveau.getIdMatiere()).addNiveau(EdeipExtranet.storedData.getNiveauById(unMatiereNiveau.getIdNiveau()));
-            EdeipExtranet.storedData.getNiveauById(unMatiereNiveau.getIdNiveau()).addMatiere(EdeipExtranet.storedData.getMatiereById(unMatiereNiveau.getIdMatiere()));
-        }
+        if (EdeipExtranet.storedData.lesMatiereNiveau.size()>0)
+            for (MatiereNiveau unMatiereNiveau : EdeipExtranet.storedData.lesMatiereNiveau){
+                EdeipExtranet.storedData.getMatiereById(unMatiereNiveau.getIdMatiere()).addNiveau(EdeipExtranet.storedData.getNiveauById(unMatiereNiveau.getIdNiveau()));
+                EdeipExtranet.storedData.getNiveauById(unMatiereNiveau.getIdNiveau()).addMatiere(EdeipExtranet.storedData.getMatiereById(unMatiereNiveau.getIdMatiere()));
+            }
     }
 }
