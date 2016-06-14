@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
+import fr.rogerleoen.edeip_extranet.data.ActivityData;
 import fr.rogerleoen.edeip_extranet.objet.CarnetLiaison;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class CarnetLiaisonListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityData.loadLesCarnetLiaison();
         setContentView(R.layout.activity_carnetliaison_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,6 +65,7 @@ public class CarnetLiaisonListActivity extends AppCompatActivity {
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
+
     }
 
     @Override
@@ -94,7 +97,7 @@ public class CarnetLiaisonListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter((ArrayList<CarnetLiaison>) EdeipExtranet.storedData.lesCarnetLiaisons));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter((ArrayList<CarnetLiaison>) ActivityData.lesCarnetLiaison /*EdeipExtranet.storedData.lesCarnetLiaisons*/));
     }
 
     public class SimpleItemRecyclerViewAdapter
@@ -117,8 +120,12 @@ public class CarnetLiaisonListActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
 
-            holder.mIdView.setText(mValues.get(position).getIdCarnetLiaison().toString());
-            holder.mContentView.setText(mValues.get(position).getDateRedaction());
+            holder.mIdView.setText(
+                    EdeipExtranet.storedData.getUtilisateurById(mValues.get(position).getIdRedacteur()).getNomPrenom()
+//                    + " (" + mValues.get(position).getDateRedaction() + ")"
+//                    mValues.get(position).getIdCarnetLiaison().toString()
+            );
+            holder.mContentView.setText("(" + mValues.get(position).afficheDateRedaction() + ")");
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override

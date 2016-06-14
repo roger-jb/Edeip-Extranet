@@ -227,4 +227,7 @@ public class Utilisateur{
         return null;
     }
 
+    public String getNomPrenom() {
+        return this.getNomUtilisateur() + " " + this.getPrenomUtilisateur();
+    }
 }

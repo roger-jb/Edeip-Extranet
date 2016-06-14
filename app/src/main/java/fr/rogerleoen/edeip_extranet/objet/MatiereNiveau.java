@@ -1,5 +1,9 @@
 package fr.rogerleoen.edeip_extranet.objet;
 
+import java.util.ArrayList;
+
+import fr.rogerleoen.edeip_extranet.EdeipExtranet;
+
 /**
  * Application Edeip-Extranet
  * Created by Jean-Baptiste on 05/06/2016.
@@ -31,5 +35,16 @@ public class MatiereNiveau {
 
     public void setIdNiveau(Integer idNiveau) {
         this.idNiveau = idNiveau;
+    }
+
+    public ArrayList<Eleve> getEleves() {
+        ArrayList<Eleve> lesEleves = new ArrayList<>();
+        for (EleveMatiereNiveau unEleveMatiereNiveau: EdeipExtranet.storedData.lesEleveMatiereNiveau){
+            if (unEleveMatiereNiveau.getIdMatiereNiveau().equals(this.getIdMatiereNiveau())){
+                lesEleves.add(Eleve.getById(unEleveMatiereNiveau.getIdEleve()));
+            }
+        }
+        return lesEleves;
+
     }
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
+import fr.rogerleoen.edeip_extranet.data.ActivityData;
 import fr.rogerleoen.edeip_extranet.objet.CahierText;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class CahierTextListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityData.loadLesCahierText();
         setContentView(R.layout.activity_cahiertext_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,7 +95,7 @@ public class CahierTextListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter((ArrayList<CahierText>) EdeipExtranet.storedData.lesCahierTexts));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter((ArrayList<CahierText>) ActivityData.lesCahierText /*EdeipExtranet.storedData.lesCahierTexts*/));
     }
 
     public class SimpleItemRecyclerViewAdapter

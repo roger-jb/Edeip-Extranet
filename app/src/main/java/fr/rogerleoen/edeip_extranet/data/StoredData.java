@@ -62,7 +62,10 @@ public class StoredData {
         AsyncWebService.getAllCarnetLiaison();
         AsyncWebService.getAllCahierText();
 
+        AsyncWebService.getAllEleveMatiereNiveau();
         AsyncWebService.getAllMatiereNiveau();
+        AsyncWebService.getAllProfesseurMatiereNiveau();
+        AsyncWebService.getAllEleveResponsabe();
     }
 
     /**
@@ -169,6 +172,15 @@ public class StoredData {
         for (Utilisateur unUtilisateur : lesUtilisateurs){
             if (unUtilisateur.getIdUtilisateur().equals(idUtilisateur)){
                 return unUtilisateur;
+            }
+        }
+        return null;
+    }
+
+    public MatiereNiveau getMatiereNiveauById(Integer idMatiereNiveau) {
+        for (MatiereNiveau uneMatiereNiveau : lesMatiereNiveau){
+            if (uneMatiereNiveau.getIdMatiereNiveau().equals(idMatiereNiveau)){
+                return uneMatiereNiveau;
             }
         }
         return null;

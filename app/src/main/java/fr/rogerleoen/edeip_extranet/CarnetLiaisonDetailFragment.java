@@ -46,7 +46,7 @@ public class CarnetLiaisonDetailFragment extends Fragment {
         Activity activity = this.getActivity();
         CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
         if (appBarLayout != null) {
-            appBarLayout.setTitle(mItem.getDateRedaction());
+            appBarLayout.setTitle(mItem.afficheDateRedaction());
         }
     }
 
@@ -57,7 +57,7 @@ public class CarnetLiaisonDetailFragment extends Fragment {
         // Show the dummy content as text in a TextView.
         Log.e("DebugmItem", mItem.getDateRedaction() + " " + mItem.getContenuCarnetLiaison());
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.carnetliaison_detail)).setText(mItem.getDateRedaction() + "\n" + mItem.getContenuCarnetLiaison());
+            ((TextView) rootView.findViewById(R.id.carnetliaison_detail)).setText(mItem.afficheContenuComplet(true));
         }
 
         return rootView;
